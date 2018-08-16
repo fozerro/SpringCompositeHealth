@@ -22,11 +22,11 @@ _MySpringBootController_ is the controller (has 1 handler in it), it also double
 _Service1_ and _Service2_ These are classes that implement the _HealthIndicator_ interface, it returns a health status based on a random boolean which is set via the a set function.  I found the important thing with these classes is that you **DO NOT** use any of the **@Component** annotations as you do not want these instances created by Spring - otherwise they get sucked into the main health aggregator as well as your own service.
 
 ## Running the actuator
-The code is sewtup so that when it is started _Service1_ is down and _Service2_ is up, you can see if you go to http://[host]:[port]/actuator/health that this allows the application health to be "Up":
+The code is setup so that when it is started _Service1_ is down and _Service2_ is up, you can see if you go to http://[host]:[port]/actuator/health that this allows the application health to be "Up":
 
 > {"status":"UP","details":**{"myHelloWorldController":{"status":_"UP"_,"details":{"Service 1":{"status":_"DOWN"_,"details":{"Detail1":"Hello"}},"Service 2":{"status":_"UP"_,"details":{"Detail2":"World"}}}}**,"diskSpace":{"status":"UP","details":{"total":499963170816,"free":423310401536,"threshold":10485760}}}}
 
-You can see that the application is UP, and the 'myHelloWorldController' is also up even though "Service 1" is down. Accessing the _'/helo'_ url will randomly set the services to up or down.
+You can see that the application is UP, and the 'myHelloWorldController' is also up even though "Service 1" is down. Accessing the _'/hello'_ url will randomly set the services to up or down.
 
 ## Seeing the sub-component statuses
 By default Spring Actuators will only show you the overall status
