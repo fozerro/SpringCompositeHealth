@@ -27,3 +27,12 @@ The code is sewtup so that when it is started _Service1_ is down and _Service2_ 
 > {"status":"UP","details":**{"myHelloWorldController":{"status":_"UP"_,"details":{"Service 1":{"status":_"DOWN"_,"details":{"Detail1":"Hello"}},"Service 2":{"status":_"UP"_,"details":{"Detail2":"World"}}}}**,"diskSpace":{"status":"UP","details":{"total":499963170816,"free":423310401536,"threshold":10485760}}}}
 
 You can see that the application is UP, and the 'myHelloWorldController' is also up even though "Service 1" is down. Accessing the _'/helo'_ url will randomly set the services to up or down.
+
+## Seeing the sub-component statuses
+By default Spring Actuators will only show you the overall status
+
+> {"status":"UP"}
+
+In order to get the sub-components (as shown above) you must add the following entry to your _application.properties_ file
+
+> management.endpoint.health.show-details=always
