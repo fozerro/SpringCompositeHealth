@@ -2,12 +2,12 @@
 **I have no idea if this is codded correctly, I could not find any examples of combining multple services into a single health state. So this is my WAG at solving the problem.**
 
 ## Problem
-I was adding 'Actuators' to my Spring Boot application per this [BaelDung Article][https://www.baeldung.com/spring-boot-actuators]. In my application I had a service which has multiple sub-components, as long as **one** of these sub-components is up then the service itself is considered up. but using the information in the article above each of my services had their own _HealthIndicator_ which then got aggregated with the entire application health. As soon as one of the sub-components went down the application indicated it was down. Apon further reading I noticed section 4.4 which states:
+I was adding 'Actuators' to my Spring Boot application per this [Baeldung Article](https://www.baeldung.com/spring-boot-actuators). In my application I had a service which has multiple sub-components, as long as **one** of these sub-components is up then the service itself is considered up. but using the information in the article above each of my services had their own _HealthIndicator_ which then got aggregated with the entire application health. As soon as one of the sub-components went down the application indicated it was down. Apon further reading I noticed section 4.4 which states:
 >A handy feature of health indicators is that we can aggregate them as part of a hierarchy.
 
 Unfortunately it doesn't delve into doing this. My first attempt was to make my own aggregator class (based on _AbstractHealthAggregator_) but doing this made the entire system use my aggregator. This would probably be OK if my application is the only one running, but if you have other applications (or services) running then this is not good because I don't want the server to indicate that it is up and running even if some other service is down.
 
-I looked on [StackOverflow][https://stackoverflow.com/questions/51861320/how-to-aggregate-health-indicators-in-spring-boot] but didn't find a lot of answers and the answers I got I had either tried or didn't really didn't apply.
+I looked on [StackOverflow](https://stackoverflow.com/questions/51861320/how-to-aggregate-health-indicators-in-spring-boot) but didn't find a lot of answers and the answers I got I had either tried or didn't really didn't apply.
 
 ## Solution
 I came up with the solution in this tree through frustration and trail and error. This appears to work but I **have absolutely no idea** if this is the _CORRECT_ way to use this functionality.
